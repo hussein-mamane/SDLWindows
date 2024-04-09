@@ -1,124 +1,42 @@
-/*
-#include <iostream>
-#include <SDL.h>
-
-
-// You shouldn't really use this statement, but it's fine for small programs
-using namespace std;
-
-// You must include the command line parameters for your main function to be recognized by SDL
-int main(int argc, char* args[]) {
-
-    // Pointers to our window and surface
-    SDL_Surface* winSurface = nullptr;
-    SDL_Window* window = nullptr;
-
-    // Initialize SDL. SDL_Init will return -1 if it fails.
-    if ( SDL_Init( SDL_INIT_EVERYTHING ) < 0 ) {
-        cout << "Error initializing SDL: " << SDL_GetError() << endl;
-        system("pause");
-        // End the program
-        return 1;
-    }
-
-    // Create our window
-    window = SDL_CreateWindow( "Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN );
-
-    // Make sure creating the window succeeded
-    if ( !window ) {
-        cout << "Error creating window: " << SDL_GetError()  << endl;
-        system("pause");
-        // End the program
-        return 1;
-    }
-
-    // Get the surface from the window
-    winSurface = SDL_GetWindowSurface( window );
-
-    // Make sure getting the surface succeeded
-    if ( !winSurface ) {
-        cout << "Error getting surface: " << SDL_GetError() << endl;
-        // End the program
-        return 1;
-    }
-
-    // Fill the window with a white rectangle
-    SDL_FillRect( winSurface, nullptr, SDL_MapRGB( winSurface->format, 255, 255, 255 ) );
-
-    // Update the window display
-    SDL_UpdateWindowSurface( window );
-
-    // Wait
-    system("sleep 10");
-
-    // Destroy the window. This will also destroy the surface
-    SDL_DestroyWindow( window );
-
-    // Quit SDL
-    SDL_Quit();
-
-    // End the program
-    return 0;
-}
-*/
-#include <iostream>
+#include "RenderWindow.hpp"
 #include <SDL.h>
 #include <SDL_image.h>
+#include <iostream>
+#define groundImagePath "..\\resources\\gfx\\ground_grass_1.png" \
+//relative to exe location
 
-// You shouldn't really use this statement, but it's fine for small programs
-using namespace std;
 
-// You must include the command line parameters for your main function to be recognized by SDL
-int main(int argc, char** args) {
-
-    // Pointers to our window and surface
-    SDL_Surface* winSurface = nullptr;
-    SDL_Window* window = nullptr;
-
-    // Initialize SDL. SDL_Init will return -1 if it fails.
-    if ( SDL_Init( SDL_INIT_EVERYTHING ) < 0 ) {
-        cout << "Error initializing SDL: " << SDL_GetError() << endl;
-        system("pause");
-        // End the program
-        return 1;
+// You must include the command line parameters for your main function
+// to be recognized by SDL as a WinMain prototype's  impl
+// do it or SDL_windows_main.c:80: undefined reference to `SDL_main', I tested
+// you can only have one definition of SDL_main in the CMake project
+int main(int argc, char* argv[]){
+    //initialisation
+    if(SDL_Init(SDL_INIT_VIDEO)>0){
+        LOG("SDL_Init has failed");
+        LOG(SDL_GetError());
     }
-
-    // Create our window
-    window = SDL_CreateWindow( "Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN );
-
-    // Make sure creating the window succeeded
-    if ( !window ) {
-        cout << "Error creating window: " << SDL_GetError()  << endl;
-        system("pause");
-        // End the program
-        return 1;
+    if(!(IMG_Init(IMG_INIT_PNG))){
+        LOG("IMG_Init has failed");
+        LOG(SDL_GetError());
     }
-
-    // Get the surface from the window
-    winSurface = SDL_GetWindowSurface( window );
-
-    // Make sure getting the surface succeeded
-    if ( !winSurface ) {
-        cout << "Error getting surface: " << SDL_GetError() << endl;
-        // End the program
-        return 1;
+    RenderWindow window("Game v1.0",640,480);
+    //textures loading, use logic to load what you need only
+    SDL_Texture* grassTexture = window.loadTexture(groundImagePath);
+    bool gameRunning = true;
+    SDL_Event event;
+    while(gameRunning)
+    {
+        while(SDL_PollEvent(&event)){
+            if(event.type == SDL_QUIT)
+                gameRunning = false;
+            // Handle Events, Call game loop callables
+        }
+        window.clear();
+        window.render(grassTexture); // window.render(world,CULLING_ENABLED)
+        window.display(); 
     }
-
-    // Fill the window with a white rectangle
-    SDL_FillRect( winSurface, nullptr, SDL_MapRGB( winSurface->format, 255, 255, 255 ) );
-
-    // Update the window display
-    SDL_UpdateWindowSurface( window );
-
-    // Wait
-    system("sleep 10");
-
-    // Destroy the window. This will also destroy the surface
-    SDL_DestroyWindow( window );
-
-    // Quit SDL
+    window.CleanUp();
     SDL_Quit();
-
-    // End the program
-    return 0;
+    return(0);
 }
