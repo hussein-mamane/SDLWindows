@@ -1,7 +1,12 @@
 #include "Entity.hpp"
 
-Entity::Entity(float _x, float _y, SDL_Texture *_tex) {
-
+Entity::Entity(float _x, float _y, SDL_Texture *_tex)
+:x(_x),y(_y),tex(_tex)
+{
+    currentFrame.x = 0;
+    currentFrame.y = 0;
+    currentFrame.w = 32;
+    currentFrame.h = 32;
 }
 
 SDL_Rect Entity::getCurrentFrame() {

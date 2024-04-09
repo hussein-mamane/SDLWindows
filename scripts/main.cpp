@@ -1,4 +1,5 @@
 #include "RenderWindow.hpp"
+#include "Entity.hpp"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
@@ -23,6 +24,14 @@ int main(int argc, char* argv[]){
     RenderWindow window("Game v1.0",640,480);
     //textures loading, use logic to load what you need only
     SDL_Texture* grassTexture = window.loadTexture(groundImagePath);
+
+
+    Entity entities[3] = {
+    Entity(0,48,grassTexture),
+    Entity(32,48,grassTexture),
+    Entity(64,48,grassTexture)
+    };
+
     bool gameRunning = true;
     SDL_Event event;
     while(gameRunning)
@@ -33,8 +42,11 @@ int main(int argc, char* argv[]){
             // Handle Events, Call game loop callables
         }
         window.clear();
-        window.render(grassTexture); // window.render(world,CULLING_ENABLED)
-        window.display(); 
+//        window.render(grassTexture); // window.render(world,CULLING_ENABLED)
+        for(Entity entity: entities){
+            window.renderEntity(entity);
+        }
+        window.display();
     }
     window.CleanUp();
     SDL_Quit();
