@@ -111,7 +111,8 @@ int main(int argc, char** args) {
     SDL_UpdateWindowSurface( window );
 
     // Wait
-    system("sleep 10");
+//    system("sleep 5"); // linux
+system("pause"); //windows
 
     // Destroy the window. This will also destroy the surface
     SDL_DestroyWindow( window );
