@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
+#include <vector>
+
 #define groundImagePath "..\\resources\\gfx\\ground_grass_1.png" \
 //relative to exe location
 
@@ -25,12 +27,17 @@ int main(int argc, char* argv[]){
     //textures loading, use logic to load what you need only
     SDL_Texture* grassTexture = window.loadTexture(groundImagePath);
 
-
-    Entity entities[3] = {
-    Entity(0,48,grassTexture),
-    Entity(32,48,grassTexture),
-    Entity(64,48,grassTexture)
+    std::vector<Entity> entitiesVector = {
+            Entity(0,48,grassTexture),
+            Entity(32,48,grassTexture),
+            Entity(64,48,grassTexture)
     };
+    //scope to get deletion
+    {
+        Entity newOne = Entity(96,48,grassTexture);
+        entitiesVector.push_back(newOne);
+    }
+
 
     bool gameRunning = true;
     SDL_Event event;
@@ -42,8 +49,9 @@ int main(int argc, char* argv[]){
             // Handle Events, Call game loop callables
         }
         window.clear();
-//        window.render(grassTexture); // window.render(world,CULLING_ENABLED)
-        for(Entity entity: entities){
+        // window.render(grassTexture); // window.render(world,CULLING_ENABLED)
+        // Entity or Entity& or auto
+        for(Entity& entity: entitiesVector){
             window.renderEntity(entity);
         }
         window.display();
