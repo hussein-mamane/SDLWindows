@@ -8,7 +8,10 @@ add_executable(sdl2p1
         scripts/main.cpp
         scripts/Entity.cpp
         scripts/RenderWindow.cpp
-#        scripts/main1.cpp
+        scripts/Math.cpp
+        scripts/Math.h
+        scripts/utils.hpp
+        #        scripts/main1.cpp
 )
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)

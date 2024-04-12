@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 
-Entity::Entity(float _x, float _y, SDL_Texture *_tex)
-:x(_x),y(_y),tex(_tex)
+Entity::Entity(Vector2f _pos, SDL_Texture *_tex)
+:pos(_pos),tex(_tex)
 {
     currentFrame.x = 0;
     currentFrame.y = 0;
@@ -18,26 +18,18 @@ SDL_Texture* Entity::getTex() {
 }
 
 
-float Entity::getX() const {
-    return x;
-}
-
-void Entity::setX(float x) {
-    Entity::x = x;
-}
-
-float Entity::getY() const {
-    return y;
-}
-
-void Entity::setY(float y) {
-    Entity::y = y;
-}
-
 void Entity::setCurrentFrame(const SDL_Rect &currentFrame) {
     Entity::currentFrame = currentFrame;
 }
 
 void Entity::setTex(SDL_Texture *tex) {
     Entity::tex = tex;
+}
+
+const Vector2f &Entity::getPos() const {
+    return pos;
+}
+
+void Entity::setPos(const Vector2f &pos) {
+    Entity::pos = pos;
 }

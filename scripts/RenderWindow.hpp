@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Entity.hpp"
 
-#define LOG(x) std::cout << x << std::endl;
+#define LOG(x) std::cout << x << stderr << std::endl;
 
 
 class RenderWindow
@@ -17,9 +17,13 @@ public:
 	void display();
     void renderTexture(SDL_Texture *p_tex);
     void renderEntity(Entity& p_ent);
+    int getRefreshRate();
+
+    SDL_Renderer *getRenderer() const;
 
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+
 
 };
