@@ -29,19 +29,20 @@ void RenderWindow::CleanUp(){
 	SDL_DestroyWindow(window);
 }
 void RenderWindow::clear(){
-	SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer,255,255,255,0);//white
+    SDL_RenderClear(renderer);
 }
 void RenderWindow::renderTexture(SDL_Texture* p_tex){
 	SDL_Rect src,dst;
     //SDL_QueryTexture can get the destination rect ready
 	src.x =src.y=dst.x = dst.y =0;//a rect to cut and a rect to past
-	src.w =src.h=dst.h = dst.w =32;
+	src.w =src.h=dst.h = dst.w =64;
 	SDL_RenderCopy(renderer,p_tex,&src,&dst);
 }
 
 void RenderWindow::renderEntity(Entity& p_ent){
     SDL_Rect src,dst;
-    int scale = 2;
+    int scale = 1;
     // SDL_RenderCopy ?
     src.x = p_ent.getCurrentFrame().x;
     src.y = p_ent.getCurrentFrame().y;
@@ -69,3 +70,19 @@ int RenderWindow::getRefreshRate() {
 SDL_Renderer *RenderWindow::getRenderer() const {
     return renderer;
 }
+
+
+
+// animation in one long image: clip the good rectangle in SDL_RenderCopy
+// or
+// Clip and create frames in textures array
+typedef struct  {
+    uint8_t x;
+    uint8_t y;
+    uint8_t w;
+    uint8_t h;
+
+//    void setOrigin(uint8_t _x,uint8_t _y){
+//
+//    }
+} FrameClipLimit;

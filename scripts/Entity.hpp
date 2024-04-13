@@ -15,8 +15,11 @@ public:
     const Vector2f &getPos() const;
     void setPos(const Vector2f &pos);
 
+    void setCurrentFrame(int nbImgWidth, int nbImgHeight, int imgIndex, int width, int height);
+
 private:
 	Vector2f pos;
 	SDL_Rect currentFrame;
 	SDL_Texture* tex{};
+
 };

@@ -6,7 +6,8 @@
 #include <vector>
 #include "utils.hpp"
 
-#define groundImagePath "..\\resources\\gfx\\ground_grass_1.png" \
+#define groundImagePath "..\\resources\\gfx\\ground_grass_1.png"
+#define knightImagePath "..\\resources\\gfx\\run_knight.png"
 //relative to exe location
 
 
@@ -33,16 +34,17 @@ int main(int argc, char* argv[]){
 //            )
 //    SDL_FreeSurface(surf);
     SDL_Texture* grassTexture = window.loadTexture(groundImagePath);
+    SDL_Texture* runTexture = window.loadTexture(knightImagePath);
     std::vector<Entity> entitiesVector = {
             Entity(Vector2f(0,48),grassTexture),
             Entity(Vector2f(32,48),grassTexture),
             Entity(Vector2f(64,48),grassTexture)
     };
     //scope to get deletion
-    {
-        Entity newOne = Entity(Vector2f(96,48),grassTexture);
+
+        Entity newOne = Entity(Vector2f(0,0),runTexture);
         entitiesVector.push_back(newOne);
-    }
+
 
 
     bool gameRunning = true;
@@ -78,8 +80,11 @@ int main(int argc, char* argv[]){
         // window.render(grassTexture); // window.render(world,CULLING_ENABLED)
         // Entity or Entity& or auto
         for(Entity& entity: entitiesVector){
-            window.renderEntity(entity);
+//            window.renderEntity(entity);
+
         }
+       newOne.setCurrentFrame(1,3,2,128,64);
+        window.renderEntity(newOne);
         window.display();
 
         uint32_t endTicks = SDL_GetTicks()-startTicks;
