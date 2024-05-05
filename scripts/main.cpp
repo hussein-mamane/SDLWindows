@@ -13,7 +13,7 @@
 
 // You must include the command line parameters for your main function
 // to be recognized by SDL as a WinMain prototype's  impl
-// do it or SDL_windows_main.c:80: undefined reference to `SDL_main', I tested
+// do it or SDL_windows_main.c:80: undefined reference to `SDL_main'
 // you can only have one definition of SDL_main in the CMake project
 int main(int argc, char* argv[]){
     //initialisation
@@ -83,7 +83,7 @@ int main(int argc, char* argv[]){
 //            window.renderEntity(entity);
 
         }
-       newOne.setCurrentFrame(1,3,2,128,64);
+        newOne.setCurrentFrame(3,1,128,64);
         window.renderEntity(newOne);
         window.display();
 

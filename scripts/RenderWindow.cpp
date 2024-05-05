@@ -29,7 +29,8 @@ void RenderWindow::CleanUp(){
 	SDL_DestroyWindow(window);
 }
 void RenderWindow::clear(){
-    SDL_SetRenderDrawColor(renderer,255,255,255,0);//white
+//    SDL_SetRenderDrawColor(renderer,255,255,255,0);//white
+    SDL_SetRenderDrawColor(renderer,0,0,0,0);//black
     SDL_RenderClear(renderer);
 }
 void RenderWindow::renderTexture(SDL_Texture* p_tex){
@@ -56,6 +57,7 @@ void RenderWindow::renderEntity(Entity& p_ent){
     dst.h = p_ent.getCurrentFrame().h*scale;
     SDL_RenderCopy(renderer,p_ent.getTex(),&src,&dst);
 }
+
 void RenderWindow::display(){
 	SDL_RenderPresent(renderer);
 }

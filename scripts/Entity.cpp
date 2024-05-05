@@ -18,9 +18,9 @@ SDL_Texture* Entity::getTex() {
 }
 
 
-void Entity::setCurrentFrame(const SDL_Rect &currentFrame) {
+/*void Entity::setCurrentFrame(const SDL_Rect &currentFrame) {
     Entity::currentFrame = currentFrame;
-}
+}*/
 
 void Entity::setTex(SDL_Texture *tex) {
     Entity::tex = tex;
@@ -34,15 +34,16 @@ void Entity::setPos(const Vector2f &pos) {
     Entity::pos = pos;
 }
 
-void Entity::setCurrentFrame(int nbImgWidth, int nbImgHeight, int imgIndex, int width,int height) {
-    if(nbImgHeight>nbImgWidth){
+void Entity::setCurrentFrame(int imgRow, int imgCol, int width,int height) {
+    /*if(nbImgRow>nbImgCol){
+        // index of rows and cols start at 0
         //even indexes are on a column basis
         currentFrame.w=width;
         currentFrame.h=height;
-        currentFrame.x=(imgIndex-nbImgWidth)*height;
-        currentFrame.y=((imgIndex-nbImgWidth)*height)+height;
+        currentFrame.x=(imgIndex-nbImgRow)*height;
+        currentFrame.y=(nbImgRow*height)+height;//
     }
-    else if (nbImgHeight<nbImgWidth){
+    else if (nbImgCol<nbImgRow){
 
         //odd indexes are on a column basis
     }
@@ -53,6 +54,16 @@ void Entity::setCurrentFrame(int nbImgWidth, int nbImgHeight, int imgIndex, int 
         else{
             //example of a 3*3 Matrix of frames
         }
-    }
+    }*/
+    currentFrame.w=width;
+    currentFrame.h=height;
+    currentFrame.x=imgCol*width;
+    currentFrame.y=imgRow*height;
+}
+
+void
+Entity::MakeFrameArray(const RenderWindow& window, const std::string &frameTilesPath, int frameWidth, int frameHeight) {
 
 }
+
+
