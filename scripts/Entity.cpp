@@ -34,6 +34,9 @@ void Entity::setPos(const Vector2f &pos) {
     Entity::pos = pos;
 }
 
+/*
+ * from a big image of multiple frames
+ **/
 void Entity::setCurrentFrame(int imgRow, int imgCol, int width,int height) {
     /*if(nbImgRow>nbImgCol){
         // index of rows and cols start at 0
@@ -61,9 +64,19 @@ void Entity::setCurrentFrame(int imgRow, int imgCol, int width,int height) {
     currentFrame.y=imgRow*height;
 }
 
-void
-Entity::MakeFrameArray(const RenderWindow& window, const std::string &frameTilesPath, int frameWidth, int frameHeight) {
+//void
+//Entity::MakeFrameArray(const RenderWindow& window, const std::string &frameTilesPath, int frameWidth, int frameHeight) {
+//
+//}
 
+
+void Entity::MakeFrameArray(const std::string &frameTilesPath,char* animationName,int frameWidth, int frameHeight, int nbRows, int nbCols) {
+    for(int i = 0; i < nbRows;++i){
+        for(int j = 0; j < nbCols;++j){
+            // crop the frame
+            setCurrentFrame(i,j,frameWidth,frameHeight);
+            // add the frame to the animationName entry of the map
+        }
+    }
 }
-
 

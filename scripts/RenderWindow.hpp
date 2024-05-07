@@ -18,7 +18,7 @@ public:
 	void clear();
 	void display();
     void renderTexture(SDL_Texture *p_tex);
-    void renderEntity(Entity& p_ent);
+    void renderEntity(Entity& p_ent,int scale);
     int getRefreshRate();
 
     SDL_Renderer *getRenderer() const;

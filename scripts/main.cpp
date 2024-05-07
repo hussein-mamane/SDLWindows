@@ -79,12 +79,12 @@ int main(int argc, char* argv[]){
         window.clear();
         // window.render(grassTexture); // window.render(world,CULLING_ENABLED)
         // Entity or Entity& or auto
-        for(Entity& entity: entitiesVector){
+        for(const Entity& entity: entitiesVector){
 //            window.renderEntity(entity);
 
         }
-        newOne.setCurrentFrame(3,1,128,64);
-        window.renderEntity(newOne);
+        newOne.setCurrentFrame(0,1,128,64);
+        window.renderEntity(newOne,2);
         window.display();
 
         uint32_t endTicks = SDL_GetTicks()-startTicks;

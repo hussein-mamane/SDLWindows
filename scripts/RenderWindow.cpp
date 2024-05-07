@@ -19,8 +19,8 @@ SDL_Texture* RenderWindow::loadTexture(const char* p_filePath)
 	SDL_Texture* texture = nullptr;
 	texture = IMG_LoadTexture(renderer,p_filePath);
 	if(texture==nullptr){
-		LOG("texture loading SDL_GetError");
-		LOG("SDL_GetError");
+		LOG("texture loading : SDL_GetError");
+		LOG(SDL_GetError());
 	}
 	return texture;
 }
@@ -41,9 +41,9 @@ void RenderWindow::renderTexture(SDL_Texture* p_tex){
 	SDL_RenderCopy(renderer,p_tex,&src,&dst);
 }
 
-void RenderWindow::renderEntity(Entity& p_ent){
+void RenderWindow::renderEntity(Entity& p_ent,int scale){
     SDL_Rect src,dst;
-    int scale = 1;
+
     // SDL_RenderCopy ?
     src.x = p_ent.getCurrentFrame().x;
     src.y = p_ent.getCurrentFrame().y;

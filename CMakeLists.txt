@@ -16,10 +16,10 @@ add_executable(sdl2p1
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
-set(SDL2_PATH "SDL2/x86_64-w64-mingw32")
+#set(SDL2_PATH "SDL2/x86_64-w64-mingw32") # this is not needed, because the FindSDL2.cmake I have is robust
 find_package(SDL2 REQUIRED)
 
-set(SDL2_IMAGE_PATH "SDL2Image/x86_64-w64-mingw32")
+#set(SDL2_IMAGE_PATH "SDL2Image/x86_64-w64-mingw32")
 find_package(SDL2_image REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIR})
