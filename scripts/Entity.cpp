@@ -1,4 +1,6 @@
 #include "Entity.hpp"
+#include <array>
+#include <iostream>
 
 Entity::Entity(Vector2f _pos, SDL_Texture *_tex)
 :pos(_pos),tex(_tex)
@@ -69,14 +71,26 @@ void Entity::setCurrentFrame(int imgRow, int imgCol, int width,int height) {
 //
 //}
 
-
-void Entity::MakeFrameArray(const std::string &frameTilesPath,char* animationName,int frameWidth, int frameHeight, int nbRows, int nbCols) {
+////frameTilesPath not used
+void Entity::MakeFrameArray(const std::string &frameTilesPath,const char* animationName,int frameWidth, int frameHeight, int nbRows, int nbCols) {
     for(int i = 0; i < nbRows;++i){
         for(int j = 0; j < nbCols;++j){
             // crop the frame
             setCurrentFrame(i,j,frameWidth,frameHeight);
-            // add the frame to the animationName entry of the map
+            frameArray.push_back(getCurrentFrame());
         }
     }
+    // add the frame to the animationName entry of the map
+//    utils::Interval interval(0,7);
+////    utils::Interval interval = utils::Interval(0,7);
+//     animationStatesFramesBoundaries[animationName]= interval;
+    std::array<int,2> boundaries  {0,7} ;
+    animationStatesFramesBoundaries[animationName]=(boundaries);
+    std::cout << animationStatesFramesBoundaries[animationName].at(0) <<std::endl;
+    std::cout << animationStatesFramesBoundaries[animationName].at(1) <<std::endl;
+}
+
+void Entity::chooseCurrentFrame(int frameIndex) {
+    currentFrame = frameArray[frameIndex];
 }
 

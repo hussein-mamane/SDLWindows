@@ -42,16 +42,16 @@ int main(int argc, char* argv[]){
     };
     //scope to get deletion
 
-        Entity newOne = Entity(Vector2f(0,0),runTexture);
-        entitiesVector.push_back(newOne);
-
-
+    Entity newOne = Entity(Vector2f(0,0),runTexture);
+    entitiesVector.push_back(newOne);
+    newOne.MakeFrameArray("","Running",128,64,4,2);
 
     bool gameRunning = true;
     SDL_Event event;
     const float timeStep = 0.01f;
     float currentTime = utils::hireTimeInSeconds();
     float accumulator = 0.0f;
+    int i = 0;
     while(gameRunning)
     {
         float newTime = utils::hireTimeInSeconds();
@@ -83,7 +83,9 @@ int main(int argc, char* argv[]){
 //            window.renderEntity(entity);
 
         }
-        newOne.setCurrentFrame(0,1,128,64);
+//        newOne.setCurrentFrame(0,1,128,64);
+        newOne.chooseCurrentFrame(i);
+        i == 7 ? i = 0: ++i;
         window.renderEntity(newOne,2);
         window.display();
 
@@ -94,5 +96,6 @@ int main(int argc, char* argv[]){
     }
     window.CleanUp();
     SDL_Quit();
+
     return(0);
 }

@@ -11,5 +11,12 @@ namespace utils
     inline float hireTimeInSeconds(){
             return SDL_GetTicks()*0.001f;
     }
+    class Interval{
+        public:
+            int start;
+            int end;
+            Interval(int pStart,int pEnd):start(pStart),end(pEnd){};
+    };
+
 }
 #endif //SDL2P1_UTILS_HPP
