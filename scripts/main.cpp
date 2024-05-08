@@ -52,13 +52,27 @@ int main(int argc, char* argv[]){
     float currentTime = utils::hireTimeInSeconds();
     float accumulator = 0.0f;
     int i = 0;
+    bool newOneMove = false;
+    float frameTimeAnimate = 0.0f;
     while(gameRunning)
     {
         float newTime = utils::hireTimeInSeconds();
         uint32_t startTicks = SDL_GetTicks();
         float frameTime = newTime - currentTime;
+        frameTimeAnimate+=frameTime;
         currentTime = newTime; // next iteration
         accumulator+=frameTime;//TODO:explain freezes when I remove this line
+
+        //should reason on the timeStep instead of this
+        if(newOneMove){
+            if(frameTimeAnimate > (float(window.getRefreshRate())*0.001)/8*10){
+                newOne.chooseCurrentFrame(i);
+                i == 7 ? i = 0: ++i;
+                frameTimeAnimate = 0;
+            }
+            newOne.setPos(Vector2f(newOne.getPos().x+2,newOne.getPos().y));
+        }
+
 
         while (accumulator>=timeStep)
         {
@@ -67,10 +81,16 @@ int main(int argc, char* argv[]){
                     gameRunning = false;
                 // Handle Events, Call game loop callables
                 if(event.type == SDL_KEYDOWN){
-                    entitiesVector[1].setPos(Vector2f(entitiesVector[1].getPos().x+0.25,entitiesVector[1].getPos().y));
+//                    entitiesVector[1].setPos(Vector2f(entitiesVector[1].getPos().x+0.25,entitiesVector[1].getPos().y));
+                        newOneMove = true;
+                }
+                if(event.type == SDL_KEYUP){
+                        newOneMove = false;
                 }
             }
             accumulator-=timeStep  ;//fps varies according to speed of processing
+//            newOne.chooseCurrentFrame(i);
+//            i == 7 ? i = 0: ++i;
         }
 
         //linear interpolation for physics state
@@ -84,8 +104,7 @@ int main(int argc, char* argv[]){
 
         }
 //        newOne.setCurrentFrame(0,1,128,64);
-        newOne.chooseCurrentFrame(i);
-        i == 7 ? i = 0: ++i;
+
         window.renderEntity(newOne,2);
         window.display();
 
